@@ -79,6 +79,64 @@
         <a href="./quiz_end.zip" class="download-btn" download>
             📥 Download ZIP File
         </a>
+        
+        <div style="text-align:left;margin-top:3rem;max-width:800px;">
+            <h2 style="color:#fff;margin-bottom:1rem;">AWS EC2 & Docker Commands</h2>
+            
+            <h3 style="color:#ccc;margin:1.5rem 0 0.5rem;">AMAZON LINUX - SSH Setup</h3>
+            <pre style="background:#111;padding:15px;border-radius:5px;overflow-x:auto;font-size:0.9rem;line-height:1.4;">sudo su
+yum update -y
+yum install httpd -y
+systemctl enable httpd
+systemctl start httpd
+cd /var/www/html
+rm -rf index.html
+touch index.html
+nano index.html</pre>
+            
+            <h3 style="color:#ccc;margin:1.5rem 0 0.5rem;">UBUNTU LINUX - SSH Setup</h3>
+            <pre style="background:#111;padding:15px;border-radius:5px;overflow-x:auto;font-size:0.9rem;line-height:1.4;">sudo su
+apt-get update -y
+apt-get install apache2 -y
+systemctl enable apache2
+systemctl start apache2
+cd /var/www/html
+rm -rf index.html
+touch index.html
+nano index.html</pre>
+            
+            <h3 style="color:#ccc;margin:1.5rem 0 0.5rem;">Docker Commands</h3>
+            <pre style="background:#111;padding:15px;border-radius:5px;overflow-x:auto;font-size:0.9rem;line-height:1.4;">docker rm container
+docker rmi image
+docker ps
+docker ps -a
+docker stop container
+docker start container
+docker build -t image_name .
+docker run -d -p 80:80 image_name:tagname
+docker run -d -p 80:80 --name container_name image_name</pre>
+            
+            <h3 style="color:#ccc;margin:1.5rem 0 0.5rem;">Sample Dockerfile</h3>
+            <pre style="background:#111;padding:15px;border-radius:5px;overflow-x:auto;font-size:0.9rem;line-height:1.4;">FROM node:20-alpine as build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:stable-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]</pre>
+            
+            <h3 style="color:#ccc;margin:1.5rem 0 0.5rem;">Docker Hub to EC2 Deployment</h3>
+            <pre style="background:#111;padding:15px;border-radius:5px;overflow-x:auto;font-size:0.9rem;line-height:1.4;">sudo su
+sudo yum install docker -y
+systemctl enable docker
+systemctl start docker
+docker pull duresh3043/nginx-sample
+docker run -d -p 80:80 docker-image_name</pre>
+        </div>
     </div>
     <div class="footer">
         Optimized for all networks
